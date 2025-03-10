@@ -1,0 +1,44 @@
+import java.io.*;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class ball {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		//컵 리스트 정의
+		int cups[] = {-1,1,2,3};
+		
+		//교환 횟수 입력
+		int N = Integer.parseInt(br.readLine());
+		
+		int where=1;
+		
+		for(int i = 0;i<N;i++) {
+			String line = br.readLine();
+			if(line ==null || line.isEmpty()) {
+				System.out.println("입력 데이터 부족");
+				break;
+			}
+			StringTokenizer st = new StringTokenizer(line, " ", false);
+			
+			int a = Integer.parseInt(st.nextToken());
+			int b = Integer.parseInt(st.nextToken());
+			
+			if(cups[a]==1)
+				where = b;
+			else if(cups[b]==1)
+				where = a;
+			
+			int temp = cups[a];
+			cups[a] = cups[b];
+			cups[b] = temp;
+			//System.out.println("cups: "+cups[1]+","+cups[2]+","+cups[3]+" where: "+where);
+		}
+		
+		System.out.println(where);
+		
+	}
+
+}
