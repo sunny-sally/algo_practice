@@ -29,6 +29,10 @@ public class DFSnBFS {
 			graph[B].add(A);
 		}
 		
+		for (int i = 1; i <= N; i++) {
+            Collections.sort(graph[i]);
+        }
+		
 		//**DFS**
 		Stack<Integer> stack = new Stack<>();
 		boolean[] visited = new boolean[N+1];
@@ -36,18 +40,21 @@ public class DFSnBFS {
 		//System.out.println("graph[1]의 값: "+graph[1]);
 		
 		while (!stack.isEmpty()) {
-			int node = stack.pop();
-			visited[node] = true;
-			System.out.print(node+" ");
-			
-			for(int next : graph[node]) {
-				if(!visited[next]) {
-					stack.push(next);
-					visited[next] = true;
-					break;
-				}
-			}
-		}
+            int node = stack.pop();
+            if (visited[node]) continue; // 이미 방문한 노드라면 스킵
+
+            visited[node] = true; 
+            System.out.print(node + " ");
+
+            // 정점 번호가 작은 순서대로 방문하기 위해 역순 삽입
+            List<Integer> neighbors = graph[node];
+            for (int i = neighbors.size() - 1; i >= 0; i--) {
+                int next = neighbors.get(i);
+                if (!visited[next]) {
+                    stack.push(next);
+                }
+            }
+        }
 		System.out.println();
 		
 		//**BFS**
@@ -64,7 +71,6 @@ public class DFSnBFS {
 				if(!visited[next]) {
 					queue.offer(next);
 					visited[next] = true;
-					break;
 				}
 			}
 		}
